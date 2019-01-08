@@ -7,7 +7,9 @@ causalTree <- function(formula, data, weights, treatment, treatments, subset,
 					   na.action = na.causalTree, 
 					   split.Rule, split.Honest, HonestSampleSize, split.Bucket, bucketNum = 5,
 					   bucketMax = 100, cv.option, cv.Honest, minsize = 2L, 
-					   x = FALSE, y = TRUE, propensity, control, split.alpha = 0.5, cv.alpha = 0.5,cv.gamma=0.5,split.gamma=0.5,
+					   x = FALSE, y = TRUE, propensity, control, split.alpha = 0.5, cv.alpha = 0.5,
+		                           cv.eta=0.5, split.eta=0.5,
+		                           cv.gamma=0.5,split.gamma=0.5,
 					   cost,  ...){ print("causaltree start")
 
 	Call <- match.call()
@@ -343,7 +345,10 @@ causalTree <- function(formula, data, weights, treatment, treatments, subset,
 					   as.double(split.alpha),
 					   as.double(cv.alpha),
 					   as.integer(HonestSampleSize),
-					   as.double(cv.gamma)
+					   as.double(cv.gamma),
+			       ##add weight
+			                   as.double(split.eta),
+					   as.double(cv.eta)
 					   )
                 print("END causalTree.R")
 		nsplit <- nrow(ctfit$isplit) # total number of splits, primary and surrogate
