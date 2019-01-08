@@ -140,6 +140,16 @@ causalTree <- function(formula, data, weights, treatment, treatments, subset,
 				stop("Invalid input for split.alpha. split.alpha should between 0 and 1.")
 			}
 		}
+		
+		if(missing(split.eta)) {
+			# set default honest splitting alpha to 0.5
+			split.eta <- 0.5
+		} else {
+			# check split.alpha in [0, 1]
+			if (split.eta > 1 || split.eta < 0) {
+				stop("Invalid input for split.eta. split.alpha should between 0 and 1.")
+			}
+		}
 	  #check for gamma for policy
 	  if(missing(split.gamma)) {
 	    # set default honest splitting alpha to 0.5
@@ -218,6 +228,10 @@ causalTree <- function(formula, data, weights, treatment, treatments, subset,
 		cv.alpha <- 0.5
 	}
 	
+        if (missing(cv.eta)) {
+		cv.eta <- 0.5
+	}
+						       
 	#for policy, set gamma (set for all presently)
 	if (missing(cv.gamma)) {
 	  cv.gamma <- 0.5
